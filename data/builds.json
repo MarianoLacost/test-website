@@ -1,0 +1,68 @@
+{
+  "_comment": "Base de datos propia de builds de Grieta. No existe una API pública oficial de Wild Rift, así que este archivo es la 'fuente de la verdad' que usamos para armar las páginas de /builds. Si el día de mañana aparece una API real, solo hay que cambiar de dónde sale este JSON.",
+  "updated": "2026-07-01",
+  "champions": [
+    {
+      "slug": "lux",
+      "name": "Lux",
+      "role": "Medio · Mago",
+      "ddragonId": "Lux",
+      "summary": "Poke a distancia y una ulti que puede definir peleas. Build clásica de burst con Compañera de Luden como motor de daño.",
+      "coreItems": [
+        {
+          "itemId": 6655,
+          "name": "Compañera de Luden",
+          "why": "Tu primer item core: mana, Poder de Habilidad y un proc extra de daño en el primer hechizo por combate. Acelera el clear de línea y el poke."
+        },
+        {
+          "itemId": 3020,
+          "name": "Botas del Hechicero",
+          "why": "Penetración mágica plana para que tu Q y tu ulti duelan desde el minuto uno."
+        },
+        {
+          "itemId": 4628,
+          "name": "Foco del Horizonte",
+          "why": "Poder de Habilidad y detección de invisibles, más un 10% de daño extra a objetivos inmovilizados: sinergiza directo con tu Q (Ligadura de Luz)."
+        }
+      ],
+      "situationalItems": [
+        {
+          "itemId": 3135,
+          "name": "Báculo del Vacío",
+          "why": "Cuando el rival empieza a stackear Resistencia Mágica (tanques, otro mago con RM)."
+        },
+        {
+          "itemId": 3157,
+          "name": "Reloj de Arena de Zhonya",
+          "why": "Si te están divendo asesinos o tirador con mucho daño explosivo encima tuyo."
+        },
+        {
+          "itemId": 3102,
+          "name": "Velo de Banshee",
+          "why": "Contra composiciones con mucho control de masas o combos de un solo golpe (one-shot)."
+        },
+        {
+          "itemId": 3116,
+          "name": "Cetro de Cristal de Rylai",
+          "why": "Para pegarle la ralentización de tus hechizos a comps con mucha movilidad que te cuesta atrapar."
+        }
+      ],
+      "skillOrder": {
+        "priority": ["Q", "E", "W"],
+        "note": "Subí Ligadura de Luz (Q) primero para el poke y el control, Singularidad Reluciente (E) segundo para el daño de línea, y dejá Barrera Prismática (W) para el final. Agarrá la ulti (R) apenas puedas: niveles 6, 11 y 16."
+      },
+      "runes": {
+        "primary": {
+          "tree": "Dominación",
+          "keystone": "Electrocutar",
+          "others": ["Golpe Repentino", "Colección de Ojos", "Cazador Voraz"]
+        },
+        "secondary": {
+          "tree": "Hechicería",
+          "others": ["Banda de Flujo de Maná", "Celeridad"]
+        },
+        "note": "Electrocutar te premia el combo Q + E + autoataque con un burst extra cada pocos segundos. Si preferís jugar más paciente y menos all-in, Cometa Arcano en Hechicería es la alternativa más común."
+      }
+    }
+  ]
+}

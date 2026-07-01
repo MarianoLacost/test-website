@@ -146,6 +146,18 @@ nav.tabs::-webkit-scrollbar{ display:none; }
   color: var(--text-dim);
   margin-left:4px;
 }
+.tab-link{
+  flex: 0 0 auto;
+  padding: 12px 14px 11px;
+  font-family:'Big Shoulders', sans-serif;
+  font-weight:700;
+  font-size: 15px;
+  letter-spacing: 0.03em;
+  color: var(--gold);
+  white-space:nowrap;
+  margin-left:auto;
+}
+.tab-link:hover{ color: var(--text); }
 
 /* ---------- layout ---------- */
 .page{
@@ -705,3 +717,171 @@ footer{
   padding-bottom: 8px;
   border-bottom: 1px solid var(--line);
 }
+
+/* ---------- builds ---------- */
+.build-card{
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+  display:flex;
+  gap:14px;
+  align-items:center;
+  transition: border-color .15s ease, transform .15s ease;
+}
+.build-card:hover{ border-color: #34474E; transform: translateY(-1px); }
+.build-card img{
+  width:64px; height:64px;
+  border-radius: 8px;
+  border: 2px solid var(--gold);
+  object-fit:cover;
+  flex:0 0 auto;
+  background: var(--surface-2);
+}
+.build-card h2{
+  font-family:'Big Shoulders', sans-serif;
+  font-weight:800;
+  font-size: 20px;
+  margin: 0 0 4px;
+}
+.build-card p{ color: var(--text-dim); font-size: 13px; line-height:1.5; margin:0; }
+
+.build-hero{ max-width: 780px; margin:0 auto; }
+.build-hero-top{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-bottom: 14px;
+}
+.build-hero-top img{
+  width:72px; height:72px;
+  border-radius: 10px;
+  border: 2px solid var(--gold);
+  object-fit:cover;
+  flex:0 0 auto;
+  background: var(--surface-2);
+}
+.build-hero h1{
+  font-family:'Big Shoulders', sans-serif;
+  font-weight:800;
+  font-size: clamp(26px, 4.6vw, 36px);
+  line-height:1.02;
+  margin:0 0 4px;
+}
+.build-hero .role{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:12px;
+  color: var(--gold);
+  letter-spacing:0.04em;
+}
+
+.item-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap: 12px;
+  margin: 14px 0 8px;
+}
+.item-card{
+  flex: 1 1 220px;
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 12px;
+  position:relative;
+}
+.item-card .item-order{
+  position:absolute;
+  top:-8px; left:-8px;
+  width:22px; height:22px;
+  border-radius:50%;
+  background: var(--gold);
+  color: var(--bg);
+  font-family:'IBM Plex Mono', monospace;
+  font-weight:700;
+  font-size:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.item-card img{
+  width:44px; height:44px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  object-fit:cover;
+  flex:0 0 auto;
+  background: var(--bg);
+}
+.item-card .item-name{
+  font-family:'Big Shoulders', sans-serif;
+  font-weight:700;
+  font-size: 15px;
+  margin-bottom:3px;
+}
+.item-card .item-why{ font-size:12.5px; color:var(--text-dim); line-height:1.5; }
+
+.skill-priority{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin: 14px 0;
+}
+.skill-priority .sp-step{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background: var(--surface-2);
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:8px 12px;
+}
+.skill-priority .sp-step .sp-slot{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:11px;
+  color:var(--gold);
+  border:1px solid var(--line);
+  border-radius:3px;
+  padding:1px 6px;
+}
+.skill-priority .sp-arrow{ color: var(--text-dim); }
+
+.rune-block{
+  display:flex;
+  flex-wrap:wrap;
+  gap: 24px;
+  margin: 14px 0;
+}
+.rune-col{ flex: 1 1 220px; }
+.rune-col h4{
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing:0.06em;
+  color: var(--text-dim);
+  margin: 0 0 10px;
+  text-transform:uppercase;
+}
+.rune-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding: 7px 0;
+  border-top:1px solid var(--line);
+}
+.rune-item:first-of-type{ border-top:none; padding-top:0; }
+.rune-item img{
+  width:28px; height:28px;
+  border-radius:50%;
+  border:1px solid var(--line);
+  background: var(--surface-2);
+  object-fit:cover;
+  flex:0 0 auto;
+}
+.rune-item.keystone img{
+  width:36px; height:36px;
+  border-color: var(--gold);
+}
+.rune-item .rn-name{ font-size:13.5px; }
+.rune-item.keystone .rn-name{ font-weight:700; }
