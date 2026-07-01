@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://marianolacost.github.io/test-website/sitemap.xml
