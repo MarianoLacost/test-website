@@ -125,6 +125,10 @@
           <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Sona_0.jpg" alt="Sona" onerror="this.onerror=null;this.src='../assets/icon-fallback.svg'">
           <div><div class="qc-name">Sona</div><span class="tag buff qc-tag">BUFF</span></div>
         </a>
+        <a class="quick-chip" href="#sierraespada">
+          <img src="../assets/icon-fallback.svg" alt="Sierraespada Quimtech">
+          <div><div class="qc-name">Sierraespada Quimtech</div><span class="tag buff qc-tag">BUFF</span></div>
+        </a>
       </div>
 
       <!-- THRESH -->
@@ -453,8 +457,21 @@
       </section>
 
       <h3 class="section-title">Objetos</h3>
-      <div class="article-body">
-        <p><b>Sierraespada Quimtech</b> venía estancada frente a otros objetos de su clase. Le suben la vida base para que rinda por aguante y utilidad en vez de daño puro: Vida básica <b>250 → 400</b>.</p>
+      <div class="widget" id="sierraespada" style="margin-bottom:14px; scroll-margin-top:90px;">
+        <h3 class="mono" style="text-transform:none;letter-spacing:0;font-size:16px;display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+          <img src="../assets/icon-fallback.svg" alt="Ícono de Sierraespada Quimtech" style="width:26px;height:26px;border-radius:5px;">
+          Sierraespada Quimtech <span class="tag buff">BUFF</span>
+        </h3>
+        <p style="color:var(--text-dim); font-size:13.5px; line-height:1.55; margin:0 0 10px;">Venía estancada frente a otros objetos de su clase. Le suben la vida base para que rinda por aguante y utilidad en vez de daño puro.</p>
+        <div class="ability-list" style="padding:0;">
+          <div class="ability-chip">
+            <img src="../assets/icon-fallback.svg" alt="Cambio de estadísticas">
+            <div class="ac-body">
+              <div class="ac-head"><span class="ac-slot">ÍTEM</span><span class="ac-name">Vida básica</span></div>
+              <ul><li>Vida: <span class="arrow">250 → <b>400</b></span></li></ul>
+            </div>
+          </div>
+        </div>
       </div>
 
       <h3 class="section-title">Corrección de errores</h3>
@@ -474,6 +491,40 @@
         <a class="share-btn" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=Parche%207.1h%20de%20Wild%20Rift%3A%20todos%20los%20cambios%2C%20resumidos&url=https://marianolacost.github.io/test-website/notas/parche-7-1h.html">Twitter / X</a>
       </div>
     </article>
+
+
+    <section class="prev-patches" style="max-width:820px;">
+      <div class="prev-patches-head">
+        <h3 class="mono">PARCHES ANTERIORES</h3>
+        <a href="../historial/index.html">Ver todo el historial &rarr;</a>
+      </div>
+      <div class="prev-patches-track" style="grid-template-columns: repeat(3, minmax(0,1fr));">
+        <a class="prev-patch-card" href="../historial/parche-4-4.html">
+          <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Fiddlesticks_0.jpg" alt="Fiddlesticks" onerror="this.remove(); this.closest('.prev-patch-card').classList.add('ppc-fallback')">
+          <span class="ppc-badge">v4.4</span>
+          <div class="ppc-body">
+            <h4>Llega Fiddlesticks, se anuncia Arena, rework de ítems de mago.</h4>
+            <span>25 Oct 2023</span>
+          </div>
+        </a>
+        <a class="prev-patch-card" href="../historial/parche-4-3d.html">
+          <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Kayn_0.jpg" alt="Kayn" onerror="this.remove(); this.closest('.prev-patch-card').classList.add('ppc-fallback')">
+          <span class="ppc-badge">v4.3d</span>
+          <div class="ppc-body">
+            <h4>Cierre del ciclo 4.3: buff a Graves y Xin Zhao, nerf a Wukong.</h4>
+            <span>12 Oct 2023</span>
+          </div>
+        </a>
+        <a class="prev-patch-card" href="../historial/parche-4-3c.html">
+          <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Hecarim_0.jpg" alt="Hecarim" onerror="this.remove(); this.closest('.prev-patch-card').classList.add('ppc-fallback')">
+          <span class="ppc-badge">v4.3c</span>
+          <div class="ppc-body">
+            <h4>Llega Hecarim, vuelven las Star Guardian.</h4>
+            <span>21 Sep 2023</span>
+          </div>
+        </a>
+      </div>
+    </section>
 
     <div class="related" style="max-width:820px;">
       <h3 class="mono">SEGUÍ LEYENDO</h3>

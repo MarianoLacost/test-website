@@ -1042,6 +1042,8 @@ footer{
 .prev-patch-card{
   position:relative;
   display:block;
+  width:100%;
+  max-width:280px;
   border-radius:10px;
   overflow:hidden;
   border:1px solid var(--line);
