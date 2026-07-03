@@ -65,13 +65,13 @@ function champCard(champ){
   var urls=abilityUrls(champ.alias);
   var cells=SLOTS.map(function(s){
     return '<div class="ab-cell">'+
-      '<img class="ab-ico" src="'+urls[s[1]]+'" alt="'+champ.name+' '+s[0]+'" '+
+      '<img class="ab-ico" src="'+FALLBACK+'" alt="'+champ.name+' '+s[0]+'" '+
         'onerror="this.onerror=null;this.src=\''+FALLBACK+'\'">'+
       '<div class="ab-slot">'+s[0]+'</div>'+
     '</div>';
   }).join('');
   var ddSquare='https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/'+champ.id+'.png';
-  return '<div class="champ-box" data-name="'+champ.name.toLowerCase()+'">'+
+  return '<div class="champ-box" data-champ-id="'+champ.id+'" data-alias="'+champ.alias+'" data-name="'+champ.name.toLowerCase()+'">'+
     '<div class="cb-head">'+
       '<img src="'+ddSquare+'" alt="'+champ.name+'" onerror="this.onerror=null;this.src=\''+FALLBACK+'\'">'+
       '<div><h3>'+champ.name+'</h3><div class="cb-sub">'+champ.alias+'</div></div>'+
@@ -91,5 +91,6 @@ document.getElementById('search').addEventListener('input', function(){
   });
 });
 </script>
+<script src="../assets/ability-icons.js" defer></script>
 </body>
 </html>
