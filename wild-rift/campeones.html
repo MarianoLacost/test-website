@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campeones y habilidades de Wild Rift — marianolacost</title>
+<meta name="description" content="Listado de todos los campeones de Wild Rift con sus habilidades (pasiva, Q, W, E, definitiva) y sus íconos oficiales. Página de diagnóstico de íconos.">
+<meta name="robots" content="noindex, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+/* estilos locales solo de esta página de diagnóstico */
+.diag-toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:18px 0 22px;}
+.diag-stat{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--text-dim);}
+.diag-stat b{color:var(--text);}
+.diag-stat.fail b{color:var(--nerf);}
+.diag-toolbar input[type=search]{background:var(--surface-2);border:1px solid var(--line);border-radius:8px;color:var(--text);padding:8px 12px;font-family:inherit;font-size:13px;min-width:180px;}
+.diag-toolbar label{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text-dim);display:inline-flex;align-items:center;gap:6px;cursor:pointer;}
+.champ-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;}
+.champ-box{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:14px;}
+.champ-box.hidden{display:none;}
+.champ-box .cb-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.champ-box .cb-head img{width:40px;height:40px;border-radius:7px;border:1px solid var(--line);}
+.champ-box .cb-head h3{font-family:'Big Shoulders',sans-serif;font-weight:800;font-size:19px;margin:0;}
+.champ-box .cb-head .cb-sub{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-dim);}
+.ab-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+.ab-cell{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;}
+.ab-cell .ab-ico{width:44px;height:44px;border-radius:8px;border:2px solid var(--line);background:var(--surface-2);object-fit:cover;}
+.ab-cell.ok .ab-ico{border-color:var(--buff);}
+.ab-cell.fail .ab-ico{border-color:var(--nerf);opacity:.55;}
+.ab-slot{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gold);}
+.ab-name{font-size:10.5px;line-height:1.15;color:var(--text-dim);min-height:24px;}
+.ab-cell.fail .ab-name{color:var(--nerf);}
+.diag-note{color:var(--text-dim);font-size:13px;line-height:1.6;max-width:70ch;margin:0 0 4px;}
+</style>
+</head>
+<body>
+<script src="../assets/nav.js" data-root="../" data-active="wild-rift"></script>
+<div class="page" style="grid-template-columns:1fr;"><main>
+  <a class="back-link" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>Volver a Wild Rift</a>
+  <h1 class="display" style="font-size:clamp(26px,4.4vw,36px);margin:0 0 8px;">Campeones y habilidades</h1>
+  <p class="diag-note">Todos los campeones que aparecen en los parches, con sus habilidades y los íconos oficiales cargados en vivo desde CommunityDragon. Si un ícono <b style="color:var(--nerf)">no carga</b>, su recuadro queda con borde rojo — así ves de un vistazo cuáles faltan.</p>
+  <div class="diag-toolbar">
+    <span class="diag-stat">Campeones: <b id="stChamps">0</b></span>
+    <span class="diag-stat">Íconos OK: <b id="stOk">0</b></span>
+    <span class="diag-stat fail">No cargaron: <b id="stFail">0</b></span>
+    <input type="search" id="search" placeholder="Buscar campeón…">
+    <label><input type="checkbox" id="onlyFail"> Mostrar solo los que fallan</label>
+  </div>
+  <div class="champ-grid" id="grid"></div>
+</main></div>
+<footer><span>© 2026 marianolacost — noticias de LoL &amp; Wild Rift</span><span>Página de diagnóstico de íconos</span></footer>
+
+<script>
+var CD='https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global';
+var CHAMPS=[{"id":266,"name":"Aatrox","alias":"Aatrox"},{"id":103,"name":"Ahri","alias":"Ahri"},{"id":84,"name":"Akali","alias":"Akali"},{"id":166,"name":"Akshan","alias":"Akshan"},{"id":799,"name":"Ambessa","alias":"Ambessa"},{"id":32,"name":"Amumu","alias":"Amumu"},{"id":1,"name":"Annie","alias":"Annie"},{"id":22,"name":"Ashe","alias":"Ashe"},{"id":136,"name":"Aurelion Sol","alias":"AurelionSol"},{"id":893,"name":"Aurora","alias":"Aurora"},{"id":432,"name":"Bardo","alias":"Bard"},{"id":53,"name":"Blitzcrank","alias":"Blitzcrank"},{"id":63,"name":"Brand","alias":"Brand"},{"id":201,"name":"Braum","alias":"Braum"},{"id":51,"name":"Caitlyn","alias":"Caitlyn"},{"id":164,"name":"Camille","alias":"Camille"},{"id":42,"name":"Corki","alias":"Corki"},{"id":122,"name":"Darius","alias":"Darius"},{"id":131,"name":"Diana","alias":"Diana"},{"id":36,"name":"Dr. Mundo","alias":"DrMundo"},{"id":119,"name":"Draven","alias":"Draven"},{"id":245,"name":"Ekko","alias":"Ekko"},{"id":28,"name":"Evelynn","alias":"Evelynn"},{"id":81,"name":"Ezreal","alias":"Ezreal"},{"id":9,"name":"Fiddlesticks","alias":"FiddleSticks"},{"id":114,"name":"Fiora","alias":"Fiora"},{"id":105,"name":"Fizz","alias":"Fizz"},{"id":3,"name":"Galio","alias":"Galio"},{"id":86,"name":"Garen","alias":"Garen"},{"id":150,"name":"Gnar","alias":"Gnar"},{"id":79,"name":"Gragas","alias":"Gragas"},{"id":104,"name":"Graves","alias":"Graves"},{"id":887,"name":"Gwen","alias":"Gwen"},{"id":120,"name":"Hecarim","alias":"Hecarim"},{"id":74,"name":"Heimerdinger","alias":"Heimerdinger"},{"id":39,"name":"Irelia","alias":"Irelia"},{"id":40,"name":"Janna","alias":"Janna"},{"id":59,"name":"Jarvan IV","alias":"JarvanIV"},{"id":24,"name":"Jax","alias":"Jax"},{"id":126,"name":"Jayce","alias":"Jayce"},{"id":202,"name":"Jhin","alias":"Jhin"},{"id":222,"name":"Jinx","alias":"Jinx"},{"id":145,"name":"Kai'Sa","alias":"Kaisa"},{"id":429,"name":"Kalista","alias":"Kalista"},{"id":43,"name":"Karma","alias":"Karma"},{"id":38,"name":"Kassadin","alias":"Kassadin"},{"id":55,"name":"Katarina","alias":"Katarina"},{"id":10,"name":"Kayle","alias":"Kayle"},{"id":141,"name":"Kayn","alias":"Kayn"},{"id":85,"name":"Kennen","alias":"Kennen"},{"id":121,"name":"Kha'Zix","alias":"Khazix"},{"id":203,"name":"Kindred","alias":"Kindred"},{"id":96,"name":"Kog'Maw","alias":"KogMaw"},{"id":64,"name":"Lee Sin","alias":"LeeSin"},{"id":89,"name":"Leona","alias":"Leona"},{"id":876,"name":"Lillia","alias":"Lillia"},{"id":127,"name":"Lissandra","alias":"Lissandra"},{"id":236,"name":"Lucian","alias":"Lucian"},{"id":117,"name":"Lulu","alias":"Lulu"},{"id":99,"name":"Lux","alias":"Lux"},{"id":11,"name":"Maestro Yi","alias":"MasterYi"},{"id":54,"name":"Malphite","alias":"Malphite"},{"id":57,"name":"Maokai","alias":"Maokai"},{"id":800,"name":"Mel","alias":"Mel"},{"id":902,"name":"Milio","alias":"Milio"},{"id":21,"name":"Miss Fortune","alias":"MissFortune"},{"id":82,"name":"Mordekaiser","alias":"Mordekaiser"},{"id":25,"name":"Morgana","alias":"Morgana"},{"id":267,"name":"Nami","alias":"Nami"},{"id":75,"name":"Nasus","alias":"Nasus"},{"id":111,"name":"Nautilus","alias":"Nautilus"},{"id":76,"name":"Nidalee","alias":"Nidalee"},{"id":895,"name":"Nilah","alias":"Nilah"},{"id":56,"name":"Nocturne","alias":"Nocturne"},{"id":20,"name":"Nunu y Willump","alias":"Nunu"},{"id":2,"name":"Olaf","alias":"Olaf"},{"id":61,"name":"Orianna","alias":"Orianna"},{"id":516,"name":"Ornn","alias":"Ornn"},{"id":80,"name":"Pantheon","alias":"Pantheon"},{"id":78,"name":"Poppy","alias":"Poppy"},{"id":555,"name":"Pyke","alias":"Pyke"},{"id":497,"name":"Rakan","alias":"Rakan"},{"id":33,"name":"Rammus","alias":"Rammus"},{"id":526,"name":"Rell","alias":"Rell"},{"id":58,"name":"Renekton","alias":"Renekton"},{"id":107,"name":"Rengar","alias":"Rengar"},{"id":92,"name":"Riven","alias":"Riven"},{"id":68,"name":"Rumble","alias":"Rumble"},{"id":13,"name":"Ryze","alias":"Ryze"},{"id":360,"name":"Samira","alias":"Samira"},{"id":235,"name":"Senna","alias":"Senna"},{"id":147,"name":"Seraphine","alias":"Seraphine"},{"id":875,"name":"Sett","alias":"Sett"},{"id":98,"name":"Shen","alias":"Shen"},{"id":102,"name":"Shyvana","alias":"Shyvana"},{"id":27,"name":"Singed","alias":"Singed"},{"id":14,"name":"Sion","alias":"Sion"},{"id":15,"name":"Sivir","alias":"Sivir"},{"id":901,"name":"Smolder","alias":"Smolder"},{"id":37,"name":"Sona","alias":"Sona"},{"id":16,"name":"Soraka","alias":"Soraka"},{"id":50,"name":"Swain","alias":"Swain"},{"id":134,"name":"Syndra","alias":"Syndra"},{"id":163,"name":"Taliyah","alias":"Taliyah"},{"id":91,"name":"Talon","alias":"Talon"},{"id":17,"name":"Teemo","alias":"Teemo"},{"id":412,"name":"Thresh","alias":"Thresh"},{"id":18,"name":"Tristana","alias":"Tristana"},{"id":23,"name":"Tryndamere","alias":"Tryndamere"},{"id":4,"name":"Twisted Fate","alias":"TwistedFate"},{"id":29,"name":"Twitch","alias":"Twitch"},{"id":6,"name":"Urgot","alias":"Urgot"},{"id":110,"name":"Varus","alias":"Varus"},{"id":67,"name":"Vayne","alias":"Vayne"},{"id":45,"name":"Veigar","alias":"Veigar"},{"id":161,"name":"Vel'Koz","alias":"Velkoz"},{"id":711,"name":"Vex","alias":"Vex"},{"id":254,"name":"Vi","alias":"Vi"},{"id":234,"name":"Viego","alias":"Viego"},{"id":112,"name":"Viktor","alias":"Viktor"},{"id":8,"name":"Vladimir","alias":"Vladimir"},{"id":106,"name":"Volibear","alias":"Volibear"},{"id":19,"name":"Warwick","alias":"Warwick"},{"id":62,"name":"Wukong","alias":"MonkeyKing"},{"id":498,"name":"Xayah","alias":"Xayah"},{"id":5,"name":"Xin Zhao","alias":"XinZhao"},{"id":157,"name":"Yasuo","alias":"Yasuo"},{"id":777,"name":"Yone","alias":"Yone"},{"id":350,"name":"Yuumi","alias":"Yuumi"},{"id":238,"name":"Zed","alias":"Zed"},{"id":221,"name":"Zeri","alias":"Zeri"},{"id":115,"name":"Ziggs","alias":"Ziggs"},{"id":26,"name":"Zilean","alias":"Zilean"},{"id":142,"name":"Zoe","alias":"Zoe"},{"id":143,"name":"Zyra","alias":"Zyra"}];
+var SLOTS=[['PASIVA','pasiva'],['Q','q'],['W','w'],['E','e'],['R','r']];
+var okCount=0, failCount=0;
+
+function iconUrl(p){ if(!p) return null; return CD+'/default'+p.replace(/^\/lol-game-data\/assets/i,'').toLowerCase(); }
+function sq(id){ return CD+'/default/assets/v1/champion-icons/'+id+'.png'; }
+
+function cell(slotLabel, name, url){
+  var d=document.createElement('div'); d.className='ab-cell';
+  var img=document.createElement('img'); img.className='ab-ico'; img.alt=name||slotLabel;
+  img.onload=function(){ d.classList.add('ok'); okCount++; upd(); };
+  img.onerror=function(){ d.classList.add('fail'); failCount++; upd(); };
+  if(url){ img.src=url; } else { d.classList.add('fail'); failCount++; setTimeout(upd,0); img.src='../assets/icon-fallback.svg'; }
+  var s=document.createElement('div'); s.className='ab-slot'; s.textContent=slotLabel;
+  var n=document.createElement('div'); n.className='ab-name'; n.textContent=name||'—';
+  d.appendChild(img); d.appendChild(s); d.appendChild(n);
+  return d;
+}
+
+function upd(){
+  document.getElementById('stOk').textContent=okCount;
+  document.getElementById('stFail').textContent=failCount;
+}
+
+function build(champ, data){
+  var box=document.createElement('div'); box.className='champ-box'; box.dataset.name=champ.name.toLowerCase();
+  var head=document.createElement('div'); head.className='cb-head';
+  var ci=document.createElement('img'); ci.src=sq(champ.id); ci.alt=champ.name;
+  ci.onerror=function(){ this.src='https://ddragon.leagueoflegends.com/cdn/14.23.1/img/champion/'+champ.alias+'.png'; };
+  var ht=document.createElement('div');
+  ht.innerHTML='<h3>'+champ.name+'</h3><div class="cb-sub">id '+champ.id+' · '+champ.alias+'</div>';
+  head.appendChild(ci); head.appendChild(ht); box.appendChild(head);
+  var row=document.createElement('div'); row.className='ab-row';
+  var byKey={};
+  if(data){
+    if(data.passive) byKey['pasiva']={name:data.passive.name,url:iconUrl(data.passive.abilityIconPath)};
+    (data.spells||[]).forEach(function(sp){ byKey[(sp.spellKey||'').toLowerCase()]={name:sp.name,url:iconUrl(sp.abilityIconPath)}; });
+  }
+  SLOTS.forEach(function(s){
+    var info=byKey[s[1]]||{};
+    row.appendChild(cell(s[0], info.name, info.url));
+  });
+  box.appendChild(row);
+  return box;
+}
+
+var grid=document.getElementById('grid');
+document.getElementById('stChamps').textContent=CHAMPS.length;
+
+// carga con concurrencia limitada para no saturar
+var idx=0, CONC=6;
+function next(){
+  if(idx>=CHAMPS.length) return;
+  var champ=CHAMPS[idx++];
+  fetch(CD+'/es_mx/v1/champions/'+champ.id+'.json')
+    .then(function(r){ return r.ok?r.json():null; })
+    .catch(function(){ return null; })
+    .then(function(data){ grid.appendChild(build(champ,data)); next(); });
+}
+for(var i=0;i<CONC;i++) next();
+
+// filtros
+function applyFilters(){
+  var q=document.getElementById('search').value.toLowerCase().trim();
+  var of=document.getElementById('onlyFail').checked;
+  document.querySelectorAll('.champ-box').forEach(function(b){
+    var okName=!q||b.dataset.name.indexOf(q)!==-1;
+    var okFail=!of||b.querySelector('.ab-cell.fail');
+    b.classList.toggle('hidden', !(okName&&okFail));
+  });
+}
+document.getElementById('search').addEventListener('input', applyFilters);
+document.getElementById('onlyFail').addEventListener('change', applyFilters);
+</script>
+</body>
+</html>
