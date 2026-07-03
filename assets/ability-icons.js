@@ -1,15 +1,26 @@
-/* Íconos de habilidades vía Data Dragon (API oficial de Riot).
-   Corre en el navegador del visitante: busca los datos es_MX de cada campeón
-   presente en la página y reemplaza el ícono genérico de cada habilidad por el
-   real, matcheando por nombre (exacto, normalizado) o por slot (Q/W/E/R/PASIVA).
-   Si algo no matchea o la red falla, queda el ícono genérico — nunca uno equivocado. */
+/* Íconos de habilidades vía CommunityDragon (datos oficiales del cliente de LoL).
+   Corre en el navegador del visitante: resuelve el id numérico de cada campeón
+   presente en la página, baja sus datos es_mx y reemplaza el ícono genérico de
+   cada habilidad por el real. El iconPath que entrega la API (formato
+   "/lol-game-data/assets/ASSETS/Characters/.../Icons2D/X.png") se convierte a la
+   URL raw de CommunityDragon en minúsculas, que es exactamente como sirve los archivos.
+   Matchea por nombre exacto (es_mx) o por slot (Q/W/E/R/PASIVA); si nada matchea
+   o la red falla, queda el ícono genérico — nunca uno equivocado. */
 (function () {
-  var DD = 'https://ddragon.leagueoflegends.com';
-  var FALLBACK_VER = '14.23.1';
+  var CD = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global';
+  var SUMMARY_URL = CD + '/default/v1/champion-summary.json';
 
   function norm(s) {
-    return s.normalize('NFD').replace(/[̀-ͯ]/g, '')
+    return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
       .toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  }
+
+  function iconUrl(iconPath) {
+    if (!iconPath) return null;
+    // "/lol-game-data/assets/ASSETS/Characters/Corki/HUD/Icons2D/Corki_R.png"
+    //   -> CD + "/default/assets/characters/corki/hud/icons2d/corki_r.png"
+    var rel = iconPath.replace(/^\/lol-game-data\/assets/i, '').toLowerCase();
+    return CD + '/default' + rel;
   }
 
   function getJSON(url) {
@@ -23,46 +34,54 @@
     try { sessionStorage.setItem(key, JSON.stringify(val)); } catch (e) {}
   }
 
-  function champData(ver, id) {
-    var key = 'dd-' + ver + '-' + id;
+  function championIds() {
+    var hit = cacheGet('cd-ids');
+    if (hit) return Promise.resolve(hit);
+    return getJSON(SUMMARY_URL).then(function (list) {
+      if (!list) return null;
+      var map = {};
+      list.forEach(function (c) {
+        if (c.id > 0 && c.alias) map[c.alias.toLowerCase()] = c.id;
+      });
+      cacheSet('cd-ids', map);
+      return map;
+    });
+  }
+
+  function champData(numId) {
+    var key = 'cd-champ-' + numId;
     var hit = cacheGet(key);
     if (hit) return Promise.resolve(hit);
-    return getJSON(DD + '/cdn/' + ver + '/data/es_MX/champion/' + id + '.json').then(function (j) {
-      if (!j || !j.data || !j.data[id]) return null;
-      var d = j.data[id];
+    return getJSON(CD + '/es_mx/v1/champions/' + numId + '.json').then(function (d) {
+      if (!d || !d.spells) return null;
       var out = {
-        passive: d.passive ? { name: d.passive.name, img: d.passive.image.full } : null,
-        spells: d.spells.map(function (sp) { return { name: sp.name, img: sp.image.full }; })
+        passive: d.passive ? { name: d.passive.name, url: iconUrl(d.passive.abilityIconPath) } : null,
+        spells: {}
       };
+      d.spells.forEach(function (sp) {
+        out.spells[(sp.spellKey || '').toLowerCase()] = { name: sp.name, url: iconUrl(sp.abilityIconPath) };
+      });
       cacheSet(key, out);
       return out;
     });
   }
 
   function swapIfLoads(img, url) {
+    if (!url) return;
     var probe = new Image();
     probe.onload = function () { img.src = url; };
     probe.src = url;
   }
 
-  function resolveVersion() {
-    var hit = cacheGet('dd-ver');
-    if (hit) return Promise.resolve(hit);
-    return getJSON(DD + '/api/versions.json').then(function (v) {
-      var ver = (v && v[0]) || FALLBACK_VER;
-      cacheSet('dd-ver', ver);
-      return ver;
-    });
-  }
-
-  function processWidget(ver, widget) {
+  function processWidget(ids, widget) {
     var champImg = widget.querySelector('h3 img[src*="/champion/"]');
     if (!champImg) return;
     var m = (champImg.getAttribute('src') || '').match(/\/champion\/([A-Za-z0-9]+)\.png/);
     if (!m) return;
-    champData(ver, m[1]).then(function (d) {
+    var numId = ids[m[1].toLowerCase()];
+    if (!numId) return;
+    champData(numId).then(function (d) {
       if (!d) return;
-      var slotIdx = { Q: 0, W: 1, E: 2, R: 3 };
       widget.querySelectorAll('.ability-chip').forEach(function (chip) {
         var img = chip.querySelector('img');
         var nameEl = chip.querySelector('.ac-name');
@@ -72,24 +91,23 @@
         var slot = slotEl ? slotEl.textContent.trim().toUpperCase() : '';
         var url = null;
 
-        // 1) match por nombre exacto de habilidad (es_MX)
-        for (var i = 0; i < d.spells.length; i++) {
-          if (norm(d.spells[i].name) === nm) { url = DD + '/cdn/' + ver + '/img/spell/' + d.spells[i].img; break; }
-        }
-        if (!url && d.passive && norm(d.passive.name) === nm) {
-          url = DD + '/cdn/' + ver + '/img/passive/' + d.passive.img;
-        }
+        // 1) match por nombre exacto de habilidad (es_mx)
+        ['q', 'w', 'e', 'r'].forEach(function (k) {
+          if (!url && d.spells[k] && norm(d.spells[k].name) === nm) url = d.spells[k].url;
+        });
+        if (!url && d.passive && norm(d.passive.name) === nm) url = d.passive.url;
+
         // 2) match por slot explícito
         if (!url) {
           if ((slot === 'PASIVA' || nm === 'pasiva') && d.passive) {
-            url = DD + '/cdn/' + ver + '/img/passive/' + d.passive.img;
-          } else if (slotIdx[slot] !== undefined && d.spells[slotIdx[slot]]) {
-            url = DD + '/cdn/' + ver + '/img/spell/' + d.spells[slotIdx[slot]].img;
-          } else if ((slot === 'R' || nm === 'definitiva') && d.spells[3]) {
-            url = DD + '/cdn/' + ver + '/img/spell/' + d.spells[3].img;
+            url = d.passive.url;
+          } else if (['Q', 'W', 'E', 'R'].indexOf(slot) !== -1 && d.spells[slot.toLowerCase()]) {
+            url = d.spells[slot.toLowerCase()].url;
+          } else if (nm === 'definitiva' && d.spells.r) {
+            url = d.spells.r.url;
           }
         }
-        if (url) swapIfLoads(img, url);
+        swapIfLoads(img, url);
       });
     });
   }
@@ -97,8 +115,9 @@
   function run() {
     var widgets = document.querySelectorAll('.widget');
     if (!widgets.length) return;
-    resolveVersion().then(function (ver) {
-      widgets.forEach(function (w) { processWidget(ver, w); });
+    championIds().then(function (ids) {
+      if (!ids) return;
+      widgets.forEach(function (w) { processWidget(ids, w); });
     });
   }
 
