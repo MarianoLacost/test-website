@@ -52,16 +52,17 @@
   function probe(img, urls, i) {
     if (i >= urls.length) return;
     var t = new Image();
-    t.onload = function () { img.src = urls[i]; };
+    t.onload = function () { set(img, urls[i]); };
     t.onerror = function () { probe(img, urls, i + 1); };
     t.src = urls[i];
   }
 
   // Aplica el ícono real (del JSON) a un <img>; si no está, usa la ruta deducida.
+  function set(img, url) { img.src = url; img.classList.remove('img-fallback'); }
   function apply(img, id, type, alias) {
     champData(id).then(function (d) {
       var url = d ? (type === 'p' ? d.p : d.spells[type]) : null;
-      if (url) { var t = new Image(); t.onload = function () { img.src = url; }; t.onerror = function () { probe(img, getAbilityIconUrl(alias, type), 0); }; t.src = url; }
+      if (url) { var t = new Image(); t.onload = function () { set(img, url); }; t.onerror = function () { probe(img, getAbilityIconUrl(alias, type), 0); }; t.src = url; }
       else { probe(img, getAbilityIconUrl(alias, type), 0); }
     });
   }

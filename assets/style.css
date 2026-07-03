@@ -1376,3 +1376,10 @@ footer{
   border-color: var(--gold);
   font-weight:600;
 }
+
+/* Imagen de miniatura (feed/tarjetas): cubre el .thumb y carga diferida. */
+.thumb-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+
+/* Respaldo suave: cuando una imagen falla y cae al icon-fallback.svg, se ve
+   atenuada y en escala de grises en vez de un error brusco. */
+.img-fallback{ opacity:.45; filter:grayscale(1); object-fit:contain; padding:16%; }
