@@ -32,7 +32,12 @@
     var a = alias.toLowerCase();
     return 'https://raw.communitydragon.org/latest/game/assets/characters/' + a + '/hud/icons/' + a + '_' + type + '.png';
   }
-  var SLOT_TO_TYPE = { PASIVA: 'p', Q: 'q', W: 'w', E: 'e', R: 'r' };
+  // Acepta tanto los códigos viejos (Q/W/E/R) como la nomenclatura Wild Rift.
+  var SLOT_TO_TYPE = {
+    PASIVA: 'p', Q: 'q', W: 'w', E: 'e', R: 'r',
+    'PRIMERA HABILIDAD': 'q', 'SEGUNDA HABILIDAD': 'w',
+    'TERCERA HABILIDAD': 'e', ULTIMATE: 'r'
+  };
 
   function getJSON(url) {
     return fetch(url).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
@@ -105,11 +110,12 @@
 
         // 2) match por slot explícito (BASE no tiene ícono y queda genérico)
         if (!url) {
+          var slotType = SLOT_TO_TYPE[slot];
           if ((slot === 'PASIVA' || nm === 'pasiva') && d.passive) {
             url = d.passive.url;
-          } else if (['Q', 'W', 'E', 'R'].indexOf(slot) !== -1 && d.spells[slot.toLowerCase()]) {
-            url = d.spells[slot.toLowerCase()].url;
-          } else if (nm === 'definitiva' && d.spells.r) {
+          } else if (slotType && slotType !== 'p' && d.spells[slotType]) {
+            url = d.spells[slotType].url;
+          } else if ((nm === 'definitiva' || slot === 'ULTIMATE') && d.spells.r) {
             url = d.spells.r.url;
           }
         }
