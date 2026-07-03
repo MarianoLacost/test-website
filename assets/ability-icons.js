@@ -26,6 +26,14 @@
     return CD + '/default' + rel;
   }
 
+  // Ruta deducida del alias (patrón game/ de CommunityDragon), como respaldo cuando
+  // no se resolvió por nombre ni por dato exacto. type = p|q|w|e|r.
+  function deducedUrl(alias, type) {
+    var a = alias.toLowerCase();
+    return 'https://raw.communitydragon.org/latest/game/assets/characters/' + a + '/hud/icons/' + a + '_' + type + '.png';
+  }
+  var SLOT_TO_TYPE = { PASIVA: 'p', Q: 'q', W: 'w', E: 'e', R: 'r' };
+
   function getJSON(url) {
     return fetch(url).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
   }
@@ -69,7 +77,8 @@
     if (!champImg) return;
     var m = (champImg.getAttribute('src') || '').match(/\/champion\/([A-Za-z0-9]+)\.png/);
     if (!m) return;
-    var numId = ids[m[1].toLowerCase()];
+    var champAlias = m[1];
+    var numId = ids[champAlias.toLowerCase()];
     if (!numId) return;
     champData(numId).then(function (d) {
       if (!d) return;
@@ -112,6 +121,12 @@
             return c.name && (c.name.indexOf(nm) !== -1 || nm.indexOf(c.name) !== -1);
           });
           if (hits.length === 1) url = hits[0].url;
+        }
+
+        // 4) respaldo por ruta deducida del alias (p/q/w/e/r). swapIfLoads solo
+        //    reemplaza si la imagen carga, así que nunca deja un ícono roto.
+        if (!url && SLOT_TO_TYPE[slot]) {
+          url = deducedUrl(champAlias, SLOT_TO_TYPE[slot]);
         }
 
         swapIfLoads(img, url);
