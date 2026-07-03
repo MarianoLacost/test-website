@@ -82,13 +82,19 @@
         var slot = slotEl ? slotEl.textContent.trim().toUpperCase() : '';
         var url = null;
 
-        // 1) match por nombre exacto de habilidad (es_mx)
+        // candidatos = pasiva + Q/W/E/R, en orden
+        var cand = [];
+        if (d.passive) cand.push({ name: norm(d.passive.name), url: d.passive.url });
         ['q', 'w', 'e', 'r'].forEach(function (k) {
-          if (!url && d.spells[k] && norm(d.spells[k].name) === nm) url = d.spells[k].url;
+          if (d.spells[k]) cand.push({ name: norm(d.spells[k].name), url: d.spells[k].url });
         });
-        if (!url && d.passive && norm(d.passive.name) === nm) url = d.passive.url;
 
-        // 2) match por slot explícito
+        // 1) match por nombre exacto (es_mx)
+        for (var i = 0; i < cand.length && !url; i++) {
+          if (cand[i].name && cand[i].name === nm) url = cand[i].url;
+        }
+
+        // 2) match por slot explícito (BASE no tiene ícono y queda genérico)
         if (!url) {
           if ((slot === 'PASIVA' || nm === 'pasiva') && d.passive) {
             url = d.passive.url;
@@ -98,6 +104,16 @@
             url = d.spells.r.url;
           }
         }
+
+        // 3) match por "contiene", solo si es inequívoco (un único candidato)
+        //    y el nombre es suficientemente largo para no dar falsos positivos.
+        if (!url && nm.length >= 5) {
+          var hits = cand.filter(function (c) {
+            return c.name && (c.name.indexOf(nm) !== -1 || nm.indexOf(c.name) !== -1);
+          });
+          if (hits.length === 1) url = hits[0].url;
+        }
+
         swapIfLoads(img, url);
       });
     });
