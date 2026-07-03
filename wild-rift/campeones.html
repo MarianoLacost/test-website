@@ -29,7 +29,7 @@
 </style>
 </head>
 <body>
-<script src="../assets/nav.js" data-root="../" data-active="wild-rift"></script>
+<script src="../assets/nav.js" data-root="../" data-active="campeones"></script>
 <div class="page" style="grid-template-columns:1fr;"><main>
   <a class="back-link" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>Volver a Wild Rift</a>
   <h1 class="display" style="font-size:clamp(26px,4.4vw,36px);margin:0 0 8px;">Campeones y habilidades</h1>
@@ -59,7 +59,7 @@ function squareUrl(alias){
   return 'https://raw.communitydragon.org/latest/game/assets/characters/'+alias.toLowerCase()+'/hud/'+alias.toLowerCase()+'_circle.png';
 }
 
-var SLOTS=[['PASIVA','p'],['Q','q'],['W','w'],['E','e'],['R','r']];
+var SLOTS=[['Pasiva','p'],['Primera Habilidad','q'],['Segunda Habilidad','w'],['Tercera Habilidad','e'],['Ultimate','r']];
 
 function champCard(champ){
   var urls=abilityUrls(champ.alias);
@@ -70,7 +70,7 @@ function champCard(champ){
       '<div class="ab-slot">'+s[0]+'</div>'+
     '</div>';
   }).join('');
-  var ddSquare='https://ddragon.leagueoflegends.com/cdn/14.23.1/img/champion/'+champ.alias+'.png';
+  var ddSquare='https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/'+champ.id+'.png';
   return '<div class="champ-box" data-name="'+champ.name.toLowerCase()+'">'+
     '<div class="cb-head">'+
       '<img src="'+ddSquare+'" alt="'+champ.name+'" onerror="this.onerror=null;this.src=\''+FALLBACK+'\'">'+

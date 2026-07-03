@@ -28,6 +28,7 @@
       '<nav class="tabs">' +
         '<a class="' + cls('inicio') + '" href="' + root + 'index.html">Inicio</a>' +
         '<a class="' + cls('wild-rift') + '" href="' + root + 'wild-rift/index.html">Wild Rift</a>' +
+        '<a class="' + cls('campeones') + '" href="' + root + 'wild-rift/campeones.html">Campeones</a>' +
         '<a class="' + cls('noticias') + '" href="' + root + 'noticias.html">Noticias</a>' +
       '</nav>' +
     '</header>';
