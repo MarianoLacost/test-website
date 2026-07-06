@@ -1,0 +1,88 @@
+{
+  "_ayuda": "Notas del feed de la home de Noticias. Agregá/quitá/reordená objetos de la lista 'notas'. Campos: href (a dónde lleva), cat (categorías separadas por espacio: wr, pc, parche, debate), img (imagen de portada), tags (etiquetas de color), title, dek (bajada), time (cuándo), read (tiempo de lectura). La primera con featured=true es la nota destacada grande.",
+  "notas": [
+    {
+      "featured": true,
+      "href": "wild-rift/parche-7-1h.html",
+      "cat": "wr parche",
+      "img": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Thresh_0.jpg",
+      "badge": "parche 7.1h",
+      "eyebrow": "DESTACADA · WILD RIFT",
+      "tags": [{ "cls": "wr", "txt": "WILD RIFT" }],
+      "title": "Wild Rift cierra la versión 7.1: nerfs a Nautilus y Taliyah, buffs a Thresh, Seraphine, Skarner, Gnar y Sona",
+      "dek": "La última tanda de balance de la 7.1: bajan el poder de las junglas dominantes y le dan aire a los soportes que se habían quedado atrás. Además, cambia la rendición en ARAM.",
+      "time": "24 jun · 10:00",
+      "read": "55s"
+    },
+    {
+      "href": "notas/jinx-nerf.html",
+      "cat": "wr parche",
+      "img": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jinx_0.jpg",
+      "tags": [{ "cls": "wr", "txt": "WILD RIFT" }],
+      "title": "El parche 14.13 le baja el daño a la ulti de Jinx y la comunidad ya está debatiendo",
+      "dek": "Riot nerfea el escalado de la tercera habilidad y el daño base de la pasiva. Te dejamos los números exactos.",
+      "time": "hoy · 09:14",
+      "read": "22s"
+    },
+    {
+      "href": "notas/botlane-meta.html",
+      "cat": "pc",
+      "img": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Kaisa_0.jpg",
+      "tags": [{ "cls": "pc", "txt": "LOL PC" }],
+      "title": "La meta de bot lane se da vuelta: los ADC de rango corto vuelven a tener chances",
+      "dek": "Con los ítems de peleador nerfeados, los duelistas como Kai'Sa y Samira ganan terreno frente a los de rango largo.",
+      "time": "hoy · 07:40",
+      "read": "15s"
+    },
+    {
+      "href": "notas/kda-skin.html",
+      "cat": "wr",
+      "img": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_0.jpg",
+      "tags": [{ "cls": "wr", "txt": "WILD RIFT" }],
+      "title": "Nueva skin de la línea K/DA llega este fin de semana al pase de batalla",
+      "dek": "Confirmado: la skin épica trae efectos nuevos en la segunda y VFX exclusivos en la ulti. Precio y fecha exacta acá.",
+      "time": "ayer · 21:02",
+      "read": "18s"
+    },
+    {
+      "href": "notas/worlds-patch.html",
+      "cat": "pc parche debate",
+      "img": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Azir_0.jpg",
+      "tags": [{ "cls": "pc", "txt": "LOL PC" }, { "cls": "debate", "txt": "DEBATE" }],
+      "title": "¿Sigue Worlds usando el parche 14.12 o suben al 14.14 antes de playoffs?",
+      "dek": "Riot todavía no confirmó el patch freeze. Repasamos los tres escenarios posibles y a quién beneficia cada uno.",
+      "time": "ayer · 18:30",
+      "read": "26s"
+    },
+    {
+      "href": "notas/ranked-reset.html",
+      "cat": "wr",
+      "img": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lux_0.jpg",
+      "tags": [{ "cls": "wr", "txt": "WILD RIFT" }],
+      "title": "Confirmado: el reset de ranked de esta temporada arranca el próximo lunes",
+      "dek": "Todas las cuentas bajan a la división correspondiente. Te contamos cuánto vas a perder según tu rango actual.",
+      "time": "2 días · 11:15",
+      "read": "14s"
+    },
+    {
+      "href": "notas/jinx-debate.html",
+      "cat": "debate wr",
+      "img": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/MissFortune_0.jpg",
+      "tags": [{ "cls": "debate", "txt": "DEBATE" }, { "cls": "wr", "txt": "WILD RIFT" }],
+      "title": "¿Jinx sigue siendo pick top tier después del nerf, o ya hay reemplazo?",
+      "dek": "Comparamos winrate pre y post parche contra Ashe y Miss Fortune para ver si el trono se mueve.",
+      "time": "2 días · 09:00",
+      "read": "24s"
+    },
+    {
+      "href": "notas/new-champ.html",
+      "cat": "pc",
+      "img": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Zeri_0.jpg",
+      "tags": [{ "cls": "pc", "txt": "LOL PC" }],
+      "title": "Filtran el próximo campeón: sería un tirador de rango medio con dash",
+      "dek": "Las imágenes del PBE muestran un kit con reposicionamiento y una pasiva que acumula con autoataques.",
+      "time": "3 días · 16:44",
+      "read": "19s"
+    }
+  ]
+}

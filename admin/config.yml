@@ -1,0 +1,102 @@
+# Configuración del panel de edición (Sveltia CMS / compatible Decap).
+# Guarda los cambios directo en el repositorio de GitHub y la web se
+# reconstruye sola. Editá las etiquetas 'label' si querés otros nombres.
+
+backend:
+  name: github
+  repo: marianolacost/test-website
+  branch: main
+
+# Carpeta donde el panel sube las imágenes que arrastres.
+media_folder: "assets/uploads"
+public_folder: "/test-website/assets/uploads"
+
+# Idioma del panel
+locale: es
+
+collections:
+  # ----- Ajustes generales del sitio -----
+  - name: "ajustes"
+    label: "Ajustes del sitio"
+    delete: false
+    files:
+      - name: "site"
+        label: "Datos generales"
+        file: "assets/content/site.json"
+        fields:
+          - { name: "nombre", label: "Nombre del sitio", widget: "string" }
+          - { name: "tagline", label: "Bajada / eslogan", widget: "string" }
+          - { name: "parcheVigente", label: "Parche vigente", widget: "string", hint: "Ej: 7.1h" }
+          - { name: "juegoParche", label: "Juego del parche", widget: "string", hint: "Ej: Wild Rift" }
+          - name: "autor"
+            label: "Autor"
+            widget: "object"
+            fields:
+              - { name: "usuario", label: "Usuario", widget: "string" }
+              - { name: "seguidores", label: "Seguidores", widget: "string" }
+          - name: "redes"
+            label: "Redes"
+            widget: "object"
+            fields:
+              - { name: "instagram", label: "Instagram", widget: "string", required: false }
+              - { name: "tiktok", label: "TikTok", widget: "string", required: false }
+              - { name: "youtube", label: "YouTube", widget: "string", required: false }
+
+  # ----- Tema / colores -----
+  - name: "tema"
+    label: "Tema (colores)"
+    delete: false
+    files:
+      - name: "theme"
+        label: "Colores del sitio"
+        file: "assets/content/theme.json"
+        fields:
+          - name: "colores"
+            label: "Colores"
+            widget: "object"
+            fields:
+              - { name: "fondo", label: "Fondo", widget: "color" }
+              - { name: "superficie", label: "Superficie (tarjetas)", widget: "color" }
+              - { name: "superficie2", label: "Superficie 2", widget: "color" }
+              - { name: "linea", label: "Líneas / bordes", widget: "color" }
+              - { name: "texto", label: "Texto", widget: "color" }
+              - { name: "textoTenue", label: "Texto tenue", widget: "color" }
+              - { name: "dorado", label: "Dorado (acento)", widget: "color" }
+              - { name: "wildRift", label: "Wild Rift", widget: "color" }
+              - { name: "lolPc", label: "LoL PC", widget: "color" }
+              - { name: "debate", label: "Debate", widget: "color" }
+              - { name: "buff", label: "Buff", widget: "color" }
+              - { name: "nerf", label: "Nerf", widget: "color" }
+          - { name: "bordeRedondeado", label: "Borde redondeado", widget: "string", required: false, hint: "Ej: 7px" }
+
+  # ----- Noticias del feed -----
+  - name: "noticias"
+    label: "Noticias (feed)"
+    files:
+      - name: "articles"
+        label: "Notas del feed"
+        file: "assets/content/articles.json"
+        fields:
+          - name: "notas"
+            label: "Notas"
+            label_singular: "Nota"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { name: "featured", label: "¿Destacada (grande)?", widget: "boolean", default: false }
+              - { name: "title", label: "Título", widget: "string" }
+              - { name: "dek", label: "Bajada", widget: "text" }
+              - { name: "href", label: "Enlace (a dónde lleva)", widget: "string" }
+              - { name: "cat", label: "Categorías (filtros)", widget: "string", hint: "Separadas por espacio: wr pc parche debate" }
+              - { name: "img", label: "Imagen de portada", widget: "image", required: false, choose_url: true }
+              - { name: "badge", label: "Etiqueta de portada", widget: "string", required: false }
+              - { name: "eyebrow", label: "Antetítulo (solo destacada)", widget: "string", required: false }
+              - name: "tags"
+                label: "Etiquetas de color"
+                widget: "list"
+                required: false
+                fields:
+                  - { name: "cls", label: "Color", widget: "select", options: ["wr", "pc", "debate"] }
+                  - { name: "txt", label: "Texto", widget: "string" }
+              - { name: "time", label: "Cuándo", widget: "string", hint: "Ej: hoy · 09:14" }
+              - { name: "read", label: "Tiempo de lectura", widget: "string", hint: "Ej: 22s" }

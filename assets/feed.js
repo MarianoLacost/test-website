@@ -64,14 +64,29 @@
     });
   }
 
-  function render() {
+  function paint(list) {
     var feed = document.getElementById('feed');
-    if (!feed || typeof ARTICLES === 'undefined') return;
+    if (!feed || !list || !list.length) return;
     var empty = document.getElementById('emptyState');
-    var html = ARTICLES.map(function (a) { return a.featured ? featuredHtml(a) : cardHtml(a); }).join('');
+    var html = list.map(function (a) { return a.featured ? featuredHtml(a) : cardHtml(a); }).join('');
     if (empty) empty.insertAdjacentHTML('beforebegin', html);
     else feed.insertAdjacentHTML('beforeend', html);
     wireFilters();
+  }
+
+  // Fuente canónica: assets/content/articles.json (editable desde el panel).
+  // Si no está disponible, cae al array de assets/articles-data.js.
+  function render() {
+    var feed = document.getElementById('feed');
+    if (!feed) return;
+    var base = feed.getAttribute('data-content-root') || '';
+    fetch(base + 'assets/content/articles.json')
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (d && d.notas && d.notas.length) paint(d.notas);
+        else if (typeof ARTICLES !== 'undefined') paint(ARTICLES);
+      })
+      .catch(function () { if (typeof ARTICLES !== 'undefined') paint(ARTICLES); });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', render);

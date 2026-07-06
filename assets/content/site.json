@@ -1,0 +1,16 @@
+{
+  "_ayuda": "Datos generales del sitio. Cambiá acá el nombre, la bajada, el parche vigente y tus redes. Se reflejan en el nav y en los widgets.",
+  "nombre": "GRIETA",
+  "tagline": "noticias de lol & wild rift — sin choclo",
+  "parcheVigente": "7.1h",
+  "juegoParche": "Wild Rift",
+  "autor": {
+    "usuario": "@marianolacost",
+    "seguidores": "+12.300"
+  },
+  "redes": {
+    "instagram": "https://instagram.com/marianolacost",
+    "tiktok": "",
+    "youtube": ""
+  }
+}

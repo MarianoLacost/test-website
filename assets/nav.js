@@ -34,4 +34,39 @@
     '</header>';
 
   document.body.insertAdjacentHTML('afterbegin', html);
+
+  /* ---- Personalización sin código: colores y datos del sitio ----
+     Lee assets/content/theme.json y site.json y los aplica. Si no existen o
+     fallan, quedan los valores por defecto de style.css / el HTML. */
+  function getJSON(url) {
+    return fetch(url).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+  }
+
+  // theme.json -> variables CSS (:root)
+  var VARMAP = {
+    fondo: '--bg', superficie: '--surface', superficie2: '--surface-2', linea: '--line',
+    texto: '--text', textoTenue: '--text-dim', dorado: '--gold', wildRift: '--wr',
+    lolPc: '--pc', debate: '--debate', buff: '--buff', nerf: '--nerf'
+  };
+  getJSON(root + 'assets/content/theme.json').then(function (t) {
+    if (!t) return;
+    var r = document.documentElement.style, c = t.colores || {};
+    Object.keys(VARMAP).forEach(function (k) { if (c[k]) r.setProperty(VARMAP[k], c[k]); });
+    if (t.bordeRedondeado) r.setProperty('--radius', t.bordeRedondeado);
+  });
+
+  // site.json -> parche vigente (nav) y cualquier elemento con data-site
+  getJSON(root + 'assets/content/site.json').then(function (s2) {
+    if (!s2) return;
+    if (s2.parcheVigente) {
+      document.querySelectorAll('.clock b, [data-site="parche"]').forEach(function (el) {
+        el.textContent = s2.parcheVigente;
+      });
+    }
+    if (s2.juegoParche) {
+      document.querySelectorAll('[data-site="juego-parche"]').forEach(function (el) {
+        el.textContent = s2.juegoParche;
+      });
+    }
+  });
 })();
