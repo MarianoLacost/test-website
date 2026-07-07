@@ -30,11 +30,9 @@
     return m ? 'https://www.youtube-nocookie.com/embed/' + m[1] : null;
   }
 
-  function latest(n) {
-    return CHAMPIONS.slice().sort(function (a, b) {
-      return (b.releaseDate || '').localeCompare(a.releaseDate || '');
-    }).slice(0, n);
-  }
+  // El array ya viene ordenado del más nuevo al más viejo (calendario Wild Rift):
+  // respetamos esa posición y mostramos los primeros n.
+  function latest(n) { return CHAMPIONS.slice(0, n); }
 
   /* -------------------- Widget -------------------- */
   function cardHtml(c, i) {
