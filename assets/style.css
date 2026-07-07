@@ -165,7 +165,7 @@ nav.tabs::-webkit-scrollbar{ display:none; }
   margin: 0 auto;
   padding: 22px 20px 80px;
   display:grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0,1fr);
   gap: 28px;
 }
 @media(min-width: 900px){
@@ -1230,10 +1230,11 @@ footer{
 
 .home-grid{
   display:grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0,1fr);
   gap:14px;
   margin-bottom: 30px;
 }
+.home-grid > *{ min-width:0; }
 @media(min-width: 860px){
   .home-grid{ grid-template-columns: 1.25fr 1fr; }
 }
@@ -1383,3 +1384,91 @@ footer{
 /* Respaldo suave: cuando una imagen falla y cae al icon-fallback.svg, se ve
    atenuada y en escala de grises en vez de un error brusco. */
 .img-fallback{ opacity:.45; filter:grayscale(1); object-fit:contain; padding:16%; }
+
+/* ============================================================
+   Widget "Últimos campeones" (index.html) + modal-wiki
+   ============================================================ */
+.latest-champions{ margin: 6px 0 34px; }
+.lc-head{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin:0 0 14px; }
+.lc-head h2{ font-family:'Big Shoulders',sans-serif; text-transform:uppercase; font-weight:800; font-size:clamp(20px,3vw,26px); margin:0; }
+.lc-more{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--gold); white-space:nowrap; }
+.lc-more:hover{ text-decoration:underline; }
+
+.lc-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+.lc-card{
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  padding:16px 10px; cursor:pointer; color:inherit; font:inherit; text-align:center;
+  transition:border-color .15s ease, transform .15s ease, background .15s ease;
+}
+.lc-card:hover{ border-color:var(--gold); transform:translateY(-2px); background:var(--surface-2); }
+.lc-card:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+.lc-portrait{ width:64px; height:64px; border-radius:50%; object-fit:cover; border:2px solid var(--line); background:var(--surface-2); }
+.lc-card:hover .lc-portrait{ border-color:var(--gold); }
+.lc-name{ font-family:'Big Shoulders',sans-serif; font-weight:800; font-size:16px; line-height:1.1; }
+.lc-role{ display:inline-flex; align-items:center; gap:5px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--text-dim); }
+.lc-role svg{ width:13px; height:13px; }
+
+/* ---- Modal ---- */
+body.modal-open{ overflow:hidden; }
+.champ-modal[hidden]{ display:none; }
+.champ-modal{ position:fixed; inset:0; z-index:1000; display:flex; align-items:center; justify-content:center; padding:18px; }
+.cm-backdrop{ position:absolute; inset:0; background:rgba(3,7,9,.72); backdrop-filter:blur(3px); }
+.cm-dialog{
+  position:relative; z-index:1; width:min(560px,100%); max-height:90vh; overflow-y:auto;
+  background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:22px;
+  box-shadow:0 24px 60px rgba(0,0,0,.5);
+}
+.cm-x{
+  position:absolute; top:12px; right:12px; width:34px; height:34px; display:grid; place-items:center;
+  background:var(--surface-2); border:1px solid var(--line); border-radius:8px; color:var(--text-dim);
+  cursor:pointer; transition:color .15s, border-color .15s;
+}
+.cm-x:hover{ color:var(--text); border-color:var(--gold); }
+.cm-x svg{ width:16px; height:16px; }
+
+.cm-header{ display:flex; align-items:center; gap:12px; margin:2px 40px 16px 0; }
+.cm-avatar{ width:56px; height:56px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); background:var(--surface-2); flex:none; }
+.cm-header h3{ font-family:'Big Shoulders',sans-serif; font-weight:800; font-size:26px; margin:0; line-height:1; }
+.cm-role{ display:inline-flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--text-dim); margin-top:4px; }
+.cm-role svg{ width:14px; height:14px; color:var(--gold); }
+
+.cm-video{ position:relative; aspect-ratio:16/9; width:100%; border-radius:10px; overflow:hidden; background:#000; margin-bottom:16px; }
+.cm-video iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+.cm-video-empty{
+  position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+  background:var(--surface-2); color:var(--text-dim); font-family:'IBM Plex Mono',monospace; font-size:13px;
+}
+.cm-video-empty svg{ width:34px; height:34px; opacity:.6; }
+
+.cm-skills{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:14px; }
+.cm-skill{
+  position:relative; width:56px; height:56px; padding:0; border-radius:50%; cursor:pointer;
+  background:var(--surface-2); border:2px solid var(--line); transition:border-color .15s, transform .15s;
+}
+.cm-skill:hover{ transform:translateY(-2px); }
+.cm-skill.active{ border-color:var(--gold); box-shadow:0 0 0 3px rgba(232,178,77,.22); }
+.cm-skill:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+.cm-skill-ico{ width:100%; height:100%; border-radius:50%; object-fit:cover; display:block; }
+.cm-skill-key{
+  position:absolute; bottom:-2px; right:-2px; width:18px; height:18px; border-radius:50%;
+  background:var(--bg); border:1px solid var(--line); color:var(--gold);
+  font-family:'IBM Plex Mono',monospace; font-size:9px; font-weight:600; display:grid; place-items:center;
+}
+
+.cm-skill-info{ background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:14px 16px; min-height:96px; }
+.cm-skill-name{ font-family:'Big Shoulders',sans-serif; text-transform:uppercase; font-weight:700; font-size:16px; color:var(--gold); margin:0 0 6px; }
+.cm-skill-desc{ font-size:14px; line-height:1.55; color:var(--text); margin:0; }
+
+/* ---- Responsive ---- */
+@media (max-width:640px){
+  .lc-row{ grid-template-columns:repeat(2,1fr); }
+  .cm-dialog{ padding:18px; }
+  .cm-header h3{ font-size:22px; }
+  .cm-skill{ width:48px; height:48px; }
+}
+@media (max-width:360px){
+  .lc-row{ grid-template-columns:repeat(2,1fr); }
+  .cm-skills{ gap:8px; }
+  .cm-skill{ width:44px; height:44px; }
+}

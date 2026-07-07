@@ -44,7 +44,7 @@
 <body>
 <script src="assets/nav.js" data-root="" data-active="inicio"></script>
 
-<div class="page" style="grid-template-columns: 1fr;">
+<div class="page" style="grid-template-columns: minmax(0,1fr);">
 <main>
 
   <!-- 1. HERO: el gancho -->
@@ -67,27 +67,30 @@
   <!-- 2. Tarjetas de navegación rápida -->
   <section class="nav-cards">
     <a class="nav-card" href="wild-rift/index.html">
-      <img loading="lazy" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Fiddlesticks_0.jpg" alt="" onerror="this.remove(); this.closest('.nav-card').classList.add('fallback-bg')">
+      <img loading="lazy" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Fiddlesticks_0.jpg" alt="" onerror="var c=this.closest('.nav-card'); this.remove(); if(c)c.classList.add('fallback-bg')">
       <div class="nc-body">
         <h3>Noticias de Wild Rift</h3>
         <span>Todas las notas de parche, del vigente al archivo completo</span>
       </div>
     </a>
     <a class="nav-card" href="noticias.html">
-      <img loading="lazy" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jinx_0.jpg" alt="" onerror="this.remove(); this.closest('.nav-card').classList.add('fallback-bg')">
+      <img loading="lazy" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jinx_0.jpg" alt="" onerror="var c=this.closest('.nav-card'); this.remove(); if(c)c.classList.add('fallback-bg')">
       <div class="nc-body">
         <h3>League of Legends</h3>
         <span>Meta, esports y todo lo que pasa en PC</span>
       </div>
     </a>
     <a class="nav-card" href="notas/new-champ.html">
-      <img loading="lazy" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Zoe_0.jpg" alt="" onerror="this.remove(); this.closest('.nav-card').classList.add('fallback-bg')">
+      <img loading="lazy" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Zoe_0.jpg" alt="" onerror="var c=this.closest('.nav-card'); this.remove(); if(c)c.classList.add('fallback-bg')">
       <div class="nc-body">
         <h3>Nuevos Campeones</h3>
         <span>Filtraciones, kits y fechas de lanzamiento</span>
       </div>
     </a>
   </section>
+
+  <!-- Widget: últimos campeones (se arma solo desde assets/champions-data.js) -->
+  <section class="latest-champions" id="latestChampions"></section>
 
   <!-- 3 y 4. Último parche + Comunidad -->
   <section class="home-grid">
@@ -139,6 +142,10 @@
   <span>© 2026 Grieta — noticias de LoL &amp; Wild Rift</span>
   <span>Hecho para leer entre partidas</span>
 </footer>
+
+<script src="assets/champions-data.js"></script>
+<script src="assets/ability-icons.js"></script>
+<script src="assets/champions-widget.js"></script>
 
 </body>
 </html>
