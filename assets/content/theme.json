@@ -1,0 +1,18 @@
+{
+  "_ayuda": "Colores y tipografías del sitio. Cambiá un valor acá y se actualiza en TODAS las páginas. Los colores van en formato #RRGGBB. Si borrás una clave, se usa el valor por defecto de assets/style.css.",
+  "colores": {
+    "fondo": "#0B1215",
+    "superficie": "#121C20",
+    "superficie2": "#172327",
+    "linea": "#24343A",
+    "texto": "#EDEAE2",
+    "textoTenue": "#93A2A6",
+    "dorado": "#E8B24D",
+    "wildRift": "#FF5D73",
+    "lolPc": "#4FA3D1",
+    "debate": "#B08BFF",
+    "buff": "#6FCF7F",
+    "nerf": "#FF6B6B"
+  },
+  "bordeRedondeado": "7px"
+}

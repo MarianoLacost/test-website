@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noticias de LoL y Wild Rift — marianolacost</title>
+<meta name="description" content="Todas las noticias de League of Legends y Wild Rift explicadas rápido: nerfs, buffs, skins, meta y debates. Sin vueltas, con el tiempo de lectura al lado.">
+<link rel="canonical" href="https://marianolacost.github.io/test-website/noticias.html">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="marianolacost">
+<meta property="og:title" content="Noticias de LoL y Wild Rift — marianolacost">
+<meta property="og:description" content="Noticias de League of Legends y Wild Rift explicadas rápido: nerfs, buffs, skins y meta.">
+<meta property="og:url" content="https://marianolacost.github.io/test-website/noticias.html">
+<meta property="og:locale" content="es_AR">
+<meta property="og:image" content="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Thresh_0.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Noticias de LoL y Wild Rift — marianolacost">
+<meta name="twitter:description" content="Nerfs, buffs, skins, meta y debates de LoL y Wild Rift, sin vueltas.">
+<meta name="twitter:image" content="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Thresh_0.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<script src="assets/nav.js" data-root="" data-active="noticias"></script>
+
+<div class="page">
+
+  <main class="feed" id="feed">
+
+    <div class="filter-row" id="filters">
+      <button class="filter-btn active" data-filter="todo">Todo</button>
+      <button class="filter-btn" data-filter="wr">Wild Rift</button>
+      <button class="filter-btn" data-filter="pc">LoL PC</button>
+      <button class="filter-btn" data-filter="parche">Parches</button>
+      <button class="filter-btn" data-filter="debate">Debate</button>
+    </div>
+
+    <p class="empty-state hidden" id="emptyState">No hay noticias en esta categoría todavía. Probá con otro filtro.</p>
+
+  </main>
+
+  <aside>
+    <div class="widget">
+      <h3 class="mono">PARCHE EN VIGENCIA</h3>
+      <div class="patch-pill">
+        <span class="v" data-site="parche">7.1h</span>
+        <span class="l" data-site="juego-parche">Wild Rift</span>
+      </div>
+      <p class="sub">Leé la nota completa en la sección <a href="wild-rift/index.html" style="color:var(--gold);">Wild Rift</a>.</p>
+    </div>
+
+    <div class="widget">
+      <h3 class="mono">TENDENCIA</h3>
+      <div class="trend-item">
+        <span class="n mono">01</span>
+        <a class="t" href="wild-rift/parche-7-1h.html">Notas completas del parche 7.1h<small>wild rift</small></a>
+      </div>
+      <div class="trend-item">
+        <span class="n mono">02</span>
+        <a class="t" href="notas/jinx-nerf.html">Nerf a Jinx en Wild Rift<small>parche 14.13</small></a>
+      </div>
+      <div class="trend-item">
+        <span class="n mono">03</span>
+        <a class="t" href="notas/ranked-reset.html">Reset de ranked temporada<small>wild rift</small></a>
+      </div>
+    </div>
+
+    <div class="widget">
+      <h3 class="mono">SIN CHOCLO, TE LO JURO</h3>
+      <p class="sub">Cada nota lleva su tiempo de lectura al lado. Si tarda más que un ban en pick &amp; ban, no entra.</p>
+    </div>
+  </aside>
+
+</div>
+
+<footer>
+  <span>© 2026 Grieta — noticias de LoL &amp; Wild Rift</span>
+  <span>Hecho para leer entre partidas</span>
+</footer>
+
+<script src="assets/articles-data.js"></script>
+<script src="assets/feed.js"></script>
+
+</body>
+</html>
